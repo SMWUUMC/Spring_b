@@ -1,4 +1,8 @@
-package umc.spring.apiPayload.code.status;
+package umc.spring.apiPayload.code;
 
 public interface BaseCode {
+    public ReasonDTO getReason();
+
+    public ReasonDTO getReasonHttpStatus();
 }
+
