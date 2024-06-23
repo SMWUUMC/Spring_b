@@ -4,8 +4,6 @@ import lombok.*;
 import umc.spring.domain.common.BaseEntity;
 
 import jakarta.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
 
 @Entity // JPA 엔티티임을 명시
 @Getter // lombok에서 제공

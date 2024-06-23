@@ -24,8 +24,8 @@ public enum ErrorStatus implements BaseErrorCode {
 
     // For test
     TEMP_EXCEPTION(HttpStatus.BAD_REQUEST, "TEMP4001", "이거는 테스트"),
-    FOOD_CATEGORY_NOT_FOUND(HttpStatus.NOT_FOUND, "FOODCATEGORY4001", "카테고리가 없습니다.");
-
+    FOOD_CATEGORY_NOT_FOUND(HttpStatus.NOT_FOUND, "FOODCATEGORY4001", "카테고리가 없습니다."),
+    STORE_ID_NOT_FOUND(HttpStatus.NOT_FOUND, "STORE4001", "store id가 없습니다.");
 
 
     private final HttpStatus httpStatus;

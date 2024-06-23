@@ -5,7 +5,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import umc.spring.converter.RegionConverter;
 import umc.spring.domain.Store;
-import umc.spring.repository.RegionRepository;
+import umc.spring.repository.StoreRepository;
 import umc.spring.web.dto.RegionRequestDTO;
 
     @Service
@@ -13,7 +13,7 @@ import umc.spring.web.dto.RegionRequestDTO;
     @org.springframework.transaction.annotation.Transactional(readOnly = true)
     public class RegionCommandServiceImpl implements RegionCommandService{
 
-        private final RegionRepository regionRepository;
+        private final StoreRepository storeRepository;
 
         @Override
         @Transactional
@@ -21,6 +21,6 @@ import umc.spring.web.dto.RegionRequestDTO;
 
             Store newStore = RegionConverter.toStore(request);
 
-            return regionRepository.save(newStore);
+            return storeRepository.save(newStore);
         }
     }
