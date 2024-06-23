@@ -27,7 +27,6 @@ public class Mission extends BaseEntity {
 
     private String missionSpec;
 
-
     @OneToMany(mappedBy = "mission", cascade = CascadeType.ALL)
     private List<MemberMission> memberMissionList = new ArrayList<>();
 }

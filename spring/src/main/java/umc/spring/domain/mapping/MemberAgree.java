@@ -2,7 +2,6 @@ package umc.spring.domain.mapping;
 
 import jakarta.persistence.*;
 import lombok.*;
-import org.springframework.data.annotation.Id;
 import umc.spring.domain.Member;
 import umc.spring.domain.Terms;
 import umc.spring.domain.common.BaseEntity;
@@ -25,5 +24,4 @@ public class MemberAgree extends BaseEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "terms_id")
     private Terms terms;
-
 }
