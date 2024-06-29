@@ -17,8 +17,4 @@ public class MissionResponseDTO {
         LocalDateTime createdAt;
     }
 
-    public static class MissionProgressResultDTO{
-        Long missionId;
-        LocalDateTime createdAt;
-    }
 }

@@ -25,7 +25,6 @@ import java.util.Optional;
 @RestControllerAdvice(annotations = {RestController.class})
 public class ExceptionAdvice extends ResponseEntityExceptionHandler {
 
-
     @org.springframework.web.bind.annotation.ExceptionHandler
     public ResponseEntity<Object> validation(ConstraintViolationException e, WebRequest request) {
         String errorMessage = e.getConstraintViolations().stream()
@@ -33,7 +32,17 @@ public class ExceptionAdvice extends ResponseEntityExceptionHandler {
                 .findFirst()
                 .orElseThrow(() -> new RuntimeException("ConstraintViolationException 추출 도중 에러 발생"));
 
-        return handleExceptionInternalConstraint(e, ErrorStatus.valueOf(errorMessage), HttpHeaders.EMPTY,request);
+        ErrorStatus errorStatus = getErrorStatusByMessage(errorMessage);
+        return handleExceptionInternalConstraint(e, errorStatus, HttpHeaders.EMPTY, request);
+    }
+
+    private ErrorStatus getErrorStatusByMessage(String errorMessage) {
+        for (ErrorStatus status : ErrorStatus.values()) {
+            if (status.getMessage().equals(errorMessage)) {
+                return status;
+            }
+        }
+        return ErrorStatus._INTERNAL_SERVER_ERROR;  // 기본값을 설정할 수 있습니다.
     }
 
 

@@ -23,12 +23,5 @@ public class MissionRequestDTO {
         String missionSpec;
     }
 
-    @Getter
-    public static class MissionProgressRequestDTO{
-        @NotNull
-        private Long storeId;
 
-        @NotNull
-        private Long missionId;
-    }
 }
