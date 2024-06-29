@@ -17,7 +17,6 @@ public class MemberMissionConverter {
     }
     public static MemberMission toMemberMission(MemberMissionRequestDTO.MemberMissionDTO request) {
 
-        MissionStatus missionStatus = null;
 
 //        switch (request.getStatus()) {
 //            case 1:
@@ -29,7 +28,7 @@ public class MemberMissionConverter {
 //        }
 
         return MemberMission.builder()
-                .status(missionStatus)
+                .status(request.getStatus())
                 .build();
 
     }
