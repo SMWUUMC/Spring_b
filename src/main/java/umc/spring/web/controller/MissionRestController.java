@@ -24,4 +24,6 @@ public class MissionRestController {
         Mission Mission = MissionCommandService.joinMission(request);
         return ApiResponse.onSuccess(MissionConverter.toJoinResultDTO(Mission));
     }
+
+
 }
