@@ -16,7 +16,7 @@ public class PageValidator implements ConstraintValidator<CheckPage, Integer> {
 
     @Override
     public boolean isValid(Integer page, ConstraintValidatorContext context) {
-        if (page == null || page < 1) {
+        if (page == null || page < 0) {
             context.disableDefaultConstraintViolation();
             context.buildConstraintViolationWithTemplate(ErrorStatus.WRONG_PAGE.getMessage())
                     .addConstraintViolation();

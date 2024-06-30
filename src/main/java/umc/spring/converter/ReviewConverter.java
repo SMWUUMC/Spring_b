@@ -28,20 +28,6 @@ public class ReviewConverter {
                 .build();
     }
 
-//    public static Review toReview(ReviewRequestDTO.ReveiwDTO request){
-//        return Review.builder()
-//                .title(request.getTitle())
-//                .score(request.getScore())
-//                .body(request.getBody())
-//                .build();
-//    }
-
-    public static ReviewResponseDTO.ReviewResultDTO toCreateReviewResultDTO(Review review){
-        return ReviewResponseDTO.ReviewResultDTO.builder()
-                .reviewId(review.getId())
-                .createdAt(LocalDateTime.now())
-                .build();
-    }
 
     public static ReviewResponseDTO.ReviewPreViewDTO reviewPreViewDTO(Review review){
         return ReviewResponseDTO.ReviewPreViewDTO.builder()

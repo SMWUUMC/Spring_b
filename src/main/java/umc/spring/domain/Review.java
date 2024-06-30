@@ -30,4 +30,11 @@ public class Review extends BaseEntity {
     @JoinColumn(name="store_id")
     private Store store;
 
+
+    public void setMember(Member member) {
+        if(this.member != null)
+            member.getReviewList().remove(this);
+        this.member = member;
+        member.getReviewList().add(this);
+    }
 }

@@ -4,13 +4,11 @@ import jakarta.validation.Constraint;
 import jakarta.validation.Payload;
 import umc.spring.validation.validator.PageValidator;
 
-import java.lang.annotation.ElementType;
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
-import java.lang.annotation.Target;
+import java.lang.annotation.*;
 
+@Documented
 @Constraint(validatedBy = PageValidator.class)
-@Target({ ElementType.PARAMETER })
+@Target( { ElementType.METHOD, ElementType.FIELD, ElementType.PARAMETER }) // 적용 범위
 @Retention(RetentionPolicy.RUNTIME)
 public @interface CheckPage {
     String message() default "Invalid page number";
