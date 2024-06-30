@@ -24,7 +24,7 @@ public class MissionResponseDTO {
     @NoArgsConstructor
     @AllArgsConstructor
     public static class MissionPreViewListDTO{
-        List<MissionResponseDTO.MissionPreViewDTO> missionList;
+        List<MissionPreViewDTO> missionList;
         Integer listSize;
         Integer totalPage;
         Long totalElements;

@@ -14,6 +14,7 @@ import umc.spring.apiPayload.code.status.ErrorStatus;
 import umc.spring.converter.MemberConverter;
 import umc.spring.converter.ReviewConverter;
 import umc.spring.domain.Member;
+import umc.spring.service.MemberMissionService.MemberMissionQueryService;
 import umc.spring.service.MemberService.MemberCommandService;
 import umc.spring.service.MemberService.MemberQueryService;
 import umc.spring.validation.annotation.CheckPage;
@@ -29,6 +30,7 @@ public class MemberRestController {
 
     private final MemberCommandService memberCommandService;
     private final MemberQueryService memberQueryService;
+    private final MemberMissionQueryService memberMissionQueryService;
 
     @PostMapping("/signup")
     public ApiResponse<MemberResponseDTO.JoinResultDTO> join(@RequestBody @Valid MemberRequestDTO.JoinDto request){
@@ -51,5 +53,23 @@ public class MemberRestController {
     public ApiResponse<MemberResponseDTO.MyReviewPreViewListDTO> getMyReviewList( @PathVariable(name = "memberId") Long memberId, @CheckPage @RequestParam(name = "page") Integer page){
         var reviewList = memberQueryService.getMyReviewList(memberId, page);
         return ApiResponse.onSuccess(MemberConverter.myreviewPreViewListDTO(reviewList));
+    }
+
+    @Operation(summary = "나의 미션 목록 조회 API", description = "나의 미션들의 목록을 조회하는 API이며, 페이징을 포함합니다. query String 으로 page 번호를 주세요")
+    @GetMapping("/{memberId}/missions")
+    @ApiResponses({
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "COMMON200", description = "OK, 성공"),
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "AUTH003", description = "access 토큰을 주세요!", content = @Content),
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "AUTH004", description = "access 토큰 만료", content = @Content),
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "AUTH006", description = "access 토큰 모양이 이상함", content = @Content),
+    })
+    @Parameters({
+            @Parameter(name = "memberId", description = "사용자의 아이디, path variable 입니다!"),
+            @Parameter(name = "page", description = "페이지 번호, 0번이 1 페이지 입니다."),
+    })
+    public ApiResponse<MemberResponseDTO.MyMissionPreViewListDTO> getMissionList(@PathVariable(name = "memberId") Long memberId, @CheckPage @RequestParam(name = "page") Integer page) {
+        // 서비스 호출하여 미션 목록 조회
+        var missionList = memberMissionQueryService.getMyMissionList(memberId, page);
+        return ApiResponse.onSuccess(MemberConverter.mymissionPreViewListDTO(missionList));
     }
 }
