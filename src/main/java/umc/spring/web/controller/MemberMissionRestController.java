@@ -32,4 +32,12 @@ public class MemberMissionRestController {
         MemberMission memberMission = memberMissionService.progressMemberMission(request);
         return ApiResponse.onSuccess(MemberMissionConverter.toMemberMissionResultDTO(memberMission));
     }
+
+    @PostMapping("/{memberId}/missions/{missionId}/complete")
+    public ApiResponse<MemberMissionResponseDTO.MemberMissionCPResultDTO> completeMission(@PathVariable Long memberId, @PathVariable Long missionId) {
+        MemberMission memberMission = memberMissionService.completeMission(memberId, missionId);
+        return ApiResponse.onSuccess(MemberMissionConverter.toMemberMissionCPResultDTO(memberMission));
+    }
+
+
 }

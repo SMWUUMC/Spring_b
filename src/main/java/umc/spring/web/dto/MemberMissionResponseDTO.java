@@ -16,4 +16,14 @@ public class MemberMissionResponseDTO {
         Long memberMissionId;
         LocalDateTime createdAt;
     }
+
+    @Builder
+    @Getter
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class MemberMissionCPResultDTO{
+        private Long memberId;
+        private Long missionId;
+        private String status;
+    }
 }

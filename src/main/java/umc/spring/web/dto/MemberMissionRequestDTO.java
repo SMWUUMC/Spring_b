@@ -16,7 +16,7 @@ public class MemberMissionRequestDTO {
         @MissionProgress
         Long missionId;
         @Enumerated(EnumType.STRING)
-        @Column(columnDefinition = "VARCHAR(15) DEFAULT 'CHALLENGE'")
+        @Column(columnDefinition = "VARCHAR(15) DEFAULT 'PROCEEDING'")
         MissionStatus status;
     }
 }

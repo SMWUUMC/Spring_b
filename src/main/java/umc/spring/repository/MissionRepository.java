@@ -8,8 +8,11 @@ import umc.spring.domain.Mission;
 import umc.spring.domain.Review;
 import umc.spring.domain.Store;
 
+import java.util.List;
+
 public interface MissionRepository extends JpaRepository<Mission, Long> {
     Page<Mission> findAllByStore(Store store, PageRequest of);
+    Page<Mission> findAllByIdIn(List<Long> ids, PageRequest pageable);
 
     // Page<Mission> findAllByMember(Member member, PageRequest of);
 }

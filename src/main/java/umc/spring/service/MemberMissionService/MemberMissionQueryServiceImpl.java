@@ -7,10 +7,14 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import umc.spring.domain.Member;
 import umc.spring.domain.Mission;
+import umc.spring.domain.enums.MissionStatus;
 import umc.spring.domain.mapping.MemberMission;
 import umc.spring.repository.MemberMissionRepository;
 import umc.spring.repository.MemberRepository;
 import umc.spring.repository.MissionRepository;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -23,12 +27,18 @@ public class MemberMissionQueryServiceImpl implements MemberMissionQueryService 
 
     @Override
     public Page<Mission> getMyMissionList(Long memberId, Integer page) {
-        Member member = memberRepository.findById(memberId).orElseThrow(() -> new RuntimeException("Member not found"));
+        Member member = memberRepository.findById(memberId)
+                .orElseThrow(() -> new RuntimeException("Member not found"));
 
-        // memberId에 해당하는 MemberMission 목록을 페이지네이션으로 조회
-        Page<MemberMission> memberMissions = memberMissionRepository.findAllByMember(member, PageRequest.of(page, 10));
+        // Retrieve missionIds of "PROCEEDING" missions for the member
+        List<Long> missionIds = memberMissionRepository.findByMemberIdAndStatus(memberId, MissionStatus.PROCEEDING)
+                .stream()
+                .map(MemberMission::getMissionId)
+                .collect(Collectors.toList());
 
-        // MemberMission에서 Mission만 추출하여 Page 객체로 반환
-        return memberMissions.map(MemberMission::getMission);
+        // Fetch missions by their IDs with pagination
+        Page<Mission> missions = missionRepository.findAllByIdIn(missionIds, PageRequest.of(page, 10));
+
+        return missions;
     }
 }

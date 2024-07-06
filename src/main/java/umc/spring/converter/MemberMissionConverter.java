@@ -17,20 +17,18 @@ public class MemberMissionConverter {
     }
     public static MemberMission toMemberMission(MemberMissionRequestDTO.MemberMissionDTO request) {
 
-
-//        switch (request.getStatus()) {
-//            case 1:
-//                missionStatus = MissionStatus.PROCEEDING;
-//                break;
-//            case 2:
-//                missionStatus = MissionStatus.COMPLETE;
-//                break;
-//        }
-
         return MemberMission.builder()
                 .status(request.getStatus())
                 .build();
 
+    }
+
+    public static MemberMissionResponseDTO.MemberMissionCPResultDTO toMemberMissionCPResultDTO(MemberMission memberMission) {
+        return MemberMissionResponseDTO.MemberMissionCPResultDTO.builder()
+                .memberId(memberMission.getMember().getId())
+                .missionId(memberMission.getMission().getId())
+                .status(memberMission.getStatus().name())
+                .build();
     }
 
 

@@ -7,7 +7,6 @@ import org.springframework.stereotype.Component;
 import umc.spring.apiPayload.code.status.ErrorStatus;
 import umc.spring.domain.enums.MissionStatus;
 import umc.spring.repository.MemberMissionRepository;
-import umc.spring.service.MemberMissionService.MemberMissionQueryService;
 import umc.spring.validation.annotation.MissionProgress;
 
 @Component
@@ -23,7 +22,7 @@ public class MissionProgressValidator implements ConstraintValidator<MissionProg
 
     @Override
     public boolean isValid(Long missionId, ConstraintValidatorContext context) {
-        boolean isMissionInProgress = memberMissionRepository.existsByMissionIdAndStatus(missionId, MissionStatus.PROCEEDING);
+        boolean isMissionInProgress = memberMissionRepository.existsByMission_IdAndStatus(missionId, MissionStatus.PROCEEDING);
 
         if (isMissionInProgress) {
             context.disableDefaultConstraintViolation();

@@ -9,6 +9,7 @@ import umc.spring.apiPayload.exception.handler.MissionHandler;
 import umc.spring.converter.MemberMissionConverter;
 import umc.spring.domain.Member;
 import umc.spring.domain.Mission;
+import umc.spring.domain.enums.MissionStatus;
 import umc.spring.domain.mapping.MemberMission;
 import umc.spring.repository.MemberMissionRepository;
 import umc.spring.repository.MemberRepository;
@@ -44,5 +45,18 @@ public class MemberMissionCommandServiceImpl implements MemberMissionCommandServ
         newMission.setMission(mission);
 
         return memberMissionRepository.save(newMission);
+    }
+
+    @Override
+    public MemberMission completeMission(Long memberId, Long missionId) {
+        MemberMission memberMission = memberMissionRepository.findByMember_IdAndMission_Id(memberId, missionId)
+                .orElseThrow(() -> new RuntimeException("MemberMission not found"));
+
+        if (memberMission.getStatus() != MissionStatus.PROCEEDING) {
+            throw new RuntimeException("Mission is not in progress");
+        }
+
+        memberMission.setStatus(MissionStatus.COMPLETE);
+        return memberMissionRepository.save(memberMission);
     }
 }
